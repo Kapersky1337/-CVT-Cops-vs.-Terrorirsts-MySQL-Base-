@@ -29,7 +29,7 @@ download  |  raw  |  embed  |  report abuse  |  print
 
 /*
 Cops vs Terrorists [BASE GM FOR BEGINNERS] [MySQL] - Brought to you by Kapersky.
-This script is created by Kapersky
+This script is created by Kapersky & LivingLikeYouDo (Most support - I'm here because of him.)
  
 SCRIPTING NOTES:
  - Script uses MySQL latest libraries.
