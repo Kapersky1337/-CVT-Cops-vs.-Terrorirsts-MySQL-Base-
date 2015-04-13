@@ -30,8 +30,9 @@ download  |  raw  |  embed  |  report abuse  |  print
 /*
 Cops vs Terrorists [BASE GM FOR BEGINNERS] [MySQL] - Brought to you by Kapersky.
 This script is created by Kapersky & LivingLikeYouDo (Most support - I'm here because of him.)
+Thanks for the support guys! I'm thankful to you guys! 
  
-SCRIPTING NOTES:
+SCRIPTING NOTES: 
  - Script uses MySQL latest libraries.
  - Team '1' is Cops - Team '2' is Terrorists - Team '0' is none.
  - Variables declared with a 'char' at the end saves more memory, and should be accessed with curly brackets ' { } ', as defined in Slice tutorial. EX: gIsNewHere { playerid } = false;
