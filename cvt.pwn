@@ -412,6 +412,12 @@ public OnGameModeInit()
  
         return 1;
 }
+
+public OnPlayerRequestClass(playerid, classid)
+{
+	SpawnPlayer(playerid);
+	return 1;
+}
  
 public OnPlayerConnect(playerid)
 {
