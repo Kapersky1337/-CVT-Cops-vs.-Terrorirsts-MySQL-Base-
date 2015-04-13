@@ -40,18 +40,18 @@ SCRIPTING NOTES:
  - Anticheat Settings:
         ALWAYS use SetPlayerHealthEx / SetPlayerArmourEx to set the players health/armour, or else the script will detect the player as hacking!*/
  
-#include                <a_samp>
-#include                <a_mysql>
-#include        <ZCMD>
-#include        <colors>
-#include        <foreach>
-#include        <mSelection>
-#include        <streamer>
-#include        <ZCMD>
-#include        <sscanf2>
+#include	<a_samp>
+#include	<a_mysql>
+#include	<ZCMD>
+#include	<colors>
+#include	<foreach>
+#include	<mSelection>
+#include	<streamer>
+#include	<ZCMD>
+#include	<sscanf2>
  
-#undef MAX_PLAYERS
-#define MAX_PLAYERS 50
+#undef          MAX_PLAYERS
+#define         MAX_PLAYERS 50
  
 #define         HOST                            "localhost"
 #define         DB                              "tdm"
