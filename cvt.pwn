@@ -1,4 +1,4 @@
-
+/*
 PASTEBIN  |  #1 paste tool since 2002	
 
     create new pastetoolsapiarchivefaq 
@@ -26,7 +26,7 @@ Guest
 Basic CVT Script by Kapersky
 By: a guest on Mar 1st, 2015  |  syntax: None  |  size: 59.26 KB  |  views: 276  |  expires: Never
 download  |  raw  |  embed  |  report abuse  |  print
-
+*/
 /*
 Cops vs Terrorists [BASE GM FOR BEGINNERS] [MySQL] - Brought to you by Kapersky.
 This script is created by Kapersky & LivingLikeYouDo (Most support - I'm here because of him.)
@@ -76,7 +76,7 @@ SCRIPTING NOTES:
 #define         SCM                     SendClientMessage
 #define         SCMTA                   SendClientMessageToAll
  
-static
+new
         mysql,
         Name[MAX_PLAYERS][24],
         IP[MAX_PLAYERS][16]
@@ -94,45 +94,51 @@ enum E_PLAYER_DATA
         Team
 }
  
-new pInfo[MAX_PLAYERS][E_PLAYER_DATA];
- 
-new gLoginAttempts[MAX_PLAYERS];
-new bool:gIsNewHere[MAX_PLAYERS char];
-new bool:gAntiSpawnProtected[MAX_PLAYERS char];
-new gHealth[MAX_PLAYERS];
-new gArmour[MAX_PLAYERS];
-new gIsLogged[MAX_PLAYERS char];
-new IsPMEnabled[MAX_PLAYERS char];
-new Float:SpecX[MAX_PLAYERS], Float:SpecY[MAX_PLAYERS], Float:SpecZ[MAX_PLAYERS], vWorld[MAX_PLAYERS], Inter[MAX_PLAYERS];
-new IsSpecing[MAX_PLAYERS], IsBeingSpeced[MAX_PLAYERS],spectatorid[MAX_PLAYERS];
+new 
+	pInfo[MAX_PLAYERS][E_PLAYER_DATA],
+ 	gLoginAttempts[MAX_PLAYERS],
+	bool:gIsNewHere[MAX_PLAYERS char],
+	bool:gAntiSpawnProtected[MAX_PLAYERS char],
+	gHealth[MAX_PLAYERS],
+	gArmour[MAX_PLAYERS],
+	gIsLogged[MAX_PLAYERS char],
+	IsPMEnabled[MAX_PLAYERS char],
+	Float:SpecX[MAX_PLAYERS], 
+	Float:SpecY[MAX_PLAYERS], 
+	Float:SpecZ[MAX_PLAYERS], 
+	vWorld[MAX_PLAYERS], 
+	Inter[MAX_PLAYERS],
+	IsSpecing[MAX_PLAYERS], 
+	IsBeingSpeced[MAX_PLAYERS],spectatorid[MAX_PLAYERS];
  
 //TDs
-new PlayerText:CVTIntro_TD[MAX_PLAYERS][10];
-new Text:randommsg;
+new 
+	PlayerText:CVTIntro_TD[MAX_PLAYERS][10],
+	Text:randommsg;
  
 //Arrays:
 new Float:RandomArmySpawn[][] =
 {
-        {191.0500, 1931.2633, 17.6406, 87.7332},
-        {225.1407, 1867.3564, 13.1406, 87.4198},
-        {211.0664, 1810.9338, 21.8672, 99.3032},
-        {349.1653, 2029.8040, 22.6406, 85.2495}
+  {191.0500, 1931.2633, 17.6406, 87.7332},
+  {225.1407, 1867.3564, 13.1406, 87.4198},
+  {211.0664, 1810.9338, 21.8672, 99.3032},
+  {349.1653, 2029.8040, 22.6406, 85.2495}
 };
  
 new Float:RandomTerroristSpawn[][] =
 {
-        {-1503.8159, 2618.3647, 55.8359, 267.9561},
-        {-1451.6556, 2589.7002, 59.7459, 2.2938},
-        {-1389.8231, 2638.2393, 55.9844, 174.4604},
-        {-1466.4821, 2686.5588, 55.8359, 170.2186}
+  {-1503.8159, 2618.3647, 55.8359, 267.9561},
+  {-1451.6556, 2589.7002, 59.7459, 2.2938},
+  {-1389.8231, 2638.2393, 55.9844, 174.4604},
+  {-1466.4821, 2686.5588, 55.8359, 170.2186}
 };
  
 new RandomMessages[][] =
 {
-    "~y~[CVT] RM: ~w~Ever spotted a ~r~hacker?~w~ ~g~/report~w~ him to the administrators!",
-    "~y~[CVT] RM: ~w~Want to suggest something or report a bug? ~g~Visit our forums!",
-    "~y~[CVT] RM: ~w~Make sure you register at our ~g~forums~w~ and register to our newsletter!",
-    "~y~[CVT] RM: ~w~Just ~g~chill~w~, and ~r~kill!"
+  "~y~[CVT] RM: ~w~Ever spotted a ~r~hacker?~w~ ~g~/report~w~ him to the administrators!",
+  "~y~[CVT] RM: ~w~Want to suggest something or report a bug? ~g~Visit our forums!",
+  "~y~[CVT] RM: ~w~Make sure you register at our ~g~forums~w~ and register to our newsletter!",
+  "~y~[CVT] RM: ~w~Just ~g~chill~w~, and ~r~kill!"
 };
  
  
@@ -157,7 +163,7 @@ main()
  
 public OnGameModeInit()
 {
-        SetGameModeText(""SERVER_VERSION"");
+        SetGameModeText(SERVER_VERSION);
        
         //Server settings:
         ShowPlayerMarkers(PLAYER_MARKERS_MODE_GLOBAL);
