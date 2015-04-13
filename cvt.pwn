@@ -413,17 +413,6 @@ public OnGameModeInit()
         return 1;
 }
  
-public OnGameModeExit()
-{
-        return 1;
-}
- 
-public OnPlayerRequestClass(playerid, classid)
-{
-        SpawnPlayer(playerid);
-        return 1;
-}
- 
 public OnPlayerConnect(playerid)
 {
         //Reseting Vars
@@ -529,31 +518,6 @@ public OnPlayerDeath(playerid, killerid, reason)
         }
     }
         return 1;
-}
- 
-public OnVehicleSpawn(vehicleid)
-{
-        return 1;
-}
- 
-public OnVehicleDeath(vehicleid, killerid)
-{
-        return 1;
-}
- 
-public OnPlayerText(playerid, text[])
-{
-        return 1;
-}
- 
-public OnPlayerCommandText(playerid, cmdtext[])
-{
-        if (strcmp("/mycommand", cmdtext, true, 10) == 0)
-        {
-                // Do something here
-                return 1;
-        }
-        return 0;
 }
  
 //Commands
