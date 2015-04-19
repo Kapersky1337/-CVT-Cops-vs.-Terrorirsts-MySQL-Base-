@@ -41,16 +41,12 @@ SCRIPTING NOTES:
 
 #define         SERVER_NAME             "[BASE] Cops vs Terrorists"
 #define         SERVER_VERSION          "CVT 0.1a"
-a
+
 #define         AdminOnly               "You are not authourized to use this command!");
 #define         SCM                     SendClientMessage
 #define         SCMTA                   SendClientMessageToAll
 
-new
-mysql,
-Name[MAX_PLAYERS][24],
-IP[MAX_PLAYERS][16]
-;
+new mysql, Name[MAX_PLAYERS][24], IP[MAX_PLAYERS][16];
 
 native WP_Hash(buffer[], len, const str[]);
 
@@ -65,26 +61,26 @@ enum E_PLAYER_DATA
 }
 
 new
-pInfo[MAX_PLAYERS][E_PLAYER_DATA],
-gLoginAttempts[MAX_PLAYERS],
-bool:gIsNewHere[MAX_PLAYERS char],
-bool:gAntiSpawnProtected[MAX_PLAYERS char],
-gHealth[MAX_PLAYERS],
-gArmour[MAX_PLAYERS],
-gIsLogged[MAX_PLAYERS char],
-IsPMEnabled[MAX_PLAYERS char],
-Float:SpecX[MAX_PLAYERS],
-Float:SpecY[MAX_PLAYERS],
-Float:SpecZ[MAX_PLAYERS],
-vWorld[MAX_PLAYERS],
-Inter[MAX_PLAYERS],
-IsSpecing[MAX_PLAYERS],
-IsBeingSpeced[MAX_PLAYERS],spectatorid[MAX_PLAYERS];
+	pInfo[MAX_PLAYERS][E_PLAYER_DATA],
+	gLoginAttempts[MAX_PLAYERS],
+	bool:gIsNewHere[MAX_PLAYERS char],
+	bool:gAntiSpawnProtected[MAX_PLAYERS char],
+	gHealth[MAX_PLAYERS],
+	gArmour[MAX_PLAYERS],
+	gIsLogged[MAX_PLAYERS char],
+	IsPMEnabled[MAX_PLAYERS char],
+	Float:SpecX[MAX_PLAYERS],
+	Float:SpecY[MAX_PLAYERS],
+	Float:SpecZ[MAX_PLAYERS],
+	vWorld[MAX_PLAYERS],
+	Inter[MAX_PLAYERS],
+	IsSpecing[MAX_PLAYERS],
+	IsBeingSpeced[MAX_PLAYERS],spectatorid[MAX_PLAYERS];
 
 //TDs
 new
-PlayerText:CVTIntro_TD[MAX_PLAYERS][10],
-Text:randommsg;
+	PlayerText:CVTIntro_TD[MAX_PLAYERS][10],
+	Text:randommsg;
 
 //Arrays:
 new Float:RandomArmySpawn[][] =
@@ -134,35 +130,35 @@ main()
 public OnGameModeInit()
 {
 	SetGameModeText(SERVER_VERSION);
-	
+
 	//Server settings:
 	ShowPlayerMarkers(PLAYER_MARKERS_MODE_GLOBAL);
 	ShowNameTags(1);
 	SetNameTagDrawDistance(10.0);
 	EnableStuntBonusForAll(0);
 	DisableInteriorEnterExits();
-	
+
 	//MySQL Connection:
 	mysql_log( LOG_ERROR | LOG_WARNING | LOG_DEBUG );
 	mysql = mysql_connect( HOST , USER , DB , PASS );
-	
+
 	if(mysql_errno(mysql) != 0)
 	{
 		printf("ERROR: MySQL could not connect to mysql. Console quiting.");
 		SendRconCommand("exit");
 	}
 	/////////
-	
+
 	//We will not use player classes.
 	AddPlayerClass(0, 1958.3783, 1343.1572, 15.3746, 269.1425, 0, 0, 0, 0, 0, 0);
-	
+
 	foreach(Player,i)
 	{
 		SetTimerEx("SaveAccountsPerMinute", 60000, true, "u", i);
 	}
-	
+
 	SetTimer("RandomMessage",8000,1); //We define the random messages per 8 seconds.
-	
+
 	//Global Textdraws Creation:
 	randommsg = TextDrawCreate(7.000000, 427.000000, "You don't need to add any text here");
 	TextDrawBackgroundColor(randommsg, 255);
@@ -171,7 +167,7 @@ public OnGameModeInit()
 	TextDrawColor(randommsg, -1);
 	TextDrawSetOutline(randommsg, 1);
 	TextDrawSetProportional(randommsg, 1);
-	
+
 	//Objects and vehicles
 	AddStaticVehicle(476,308.6000100,2055.2000000,18.8000000,180.0000000,105,88); //Rustler
 	AddStaticVehicle(476,320.0996100,2055.2998000,18.8000000,180.0000000,105,88); //Rustler
@@ -379,7 +375,7 @@ public OnGameModeInit()
 	CreateDynamicObject(7191,-1492.9000000,2350.3000000,49.8000000,0.0000000,0.0000000,90.0000000); //object(vegasnnewfence2b) (18)
 	CreateDynamicObject(3279,-1545.2000000,2354.5000000,55.4000000,0.0000000,0.0000000,0.0000000); //object(a51_spottower) (1)
 	CreateDynamicObject(3279,-1473.9000000,2354.8000000,55.4000000,0.0000000,0.0000000,180.0000000); //object(a51_spottower) (2)
-	
+
 	return 1;
 }
 
@@ -954,7 +950,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SkinSelectionPerTeam(playerid);
 		}
 	}
-	
+
 	return 1;
 }
 
@@ -1063,7 +1059,7 @@ public OnPlayerAccountLoad(playerid)
 	pInfo[playerid][VIP] = cache_get_field_content_int(0, "VIP");
 	pInfo[playerid][Money] = cache_get_field_content_int(0, "Money");
 	pInfo[playerid][Team] = cache_get_field_content_int(0, "Team");
-	
+
 	GivePlayerMoney(playerid, pInfo[playerid][Money]);
 	SendClientMessage(playerid, -1, "Successfully logged in!");
 	return 1;
@@ -1188,7 +1184,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][0], 1);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][0], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][0], 0);
-	
+
 	CVTIntro_TD[playerid][1] = CreatePlayerTextDraw(playerid, 95.625000, 54.666683, "Cops_vs~n~________Terrorists");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][1], 0.658125, 3.291667);
 	PlayerTextDrawAlignment(playerid, CVTIntro_TD[playerid][1], 1);
@@ -1199,7 +1195,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][1], 3);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][1], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][1], 0);
-	
+
 	CVTIntro_TD[playerid][2] = CreatePlayerTextDraw(playerid, 281.250000, 155.000030, "A_TDM_project_brought_to_you_by~n~______________________________________");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][2], 0.336249, 1.162499);
 	PlayerTextDrawAlignment(playerid, CVTIntro_TD[playerid][2], 1);
@@ -1210,7 +1206,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][2], 2);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][2], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][2], 0);
-	
+
 	CVTIntro_TD[playerid][3] = CreatePlayerTextDraw(playerid, 438.125000, 165.500000, "Kapersky");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][3], 0.392499, 1.244166);
 	PlayerTextDrawAlignment(playerid, CVTIntro_TD[playerid][3], 1);
@@ -1221,7 +1217,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][3], 2);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][3], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][3], 0);
-	
+
 	CVTIntro_TD[playerid][4] = CreatePlayerTextDraw(playerid, 2.500000, 179.500076, "box");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][4], 0.000000, 0.000000);
 	PlayerTextDrawTextSize(playerid, CVTIntro_TD[playerid][4], 648.750000, 0.000000);
@@ -1235,7 +1231,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][4], 1);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][4], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][4], 0);
-	
+
 	CVTIntro_TD[playerid][5] = CreatePlayerTextDraw(playerid, 27.500000, 194.083419, "");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][5], 0.000000, 0.000000);
 	PlayerTextDrawTextSize(playerid, CVTIntro_TD[playerid][5], 90.000000, 90.000000);
@@ -1249,7 +1245,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][5], 0);
 	PlayerTextDrawSetPreviewModel(playerid, CVTIntro_TD[playerid][5], 348);
 	PlayerTextDrawSetPreviewRot(playerid, CVTIntro_TD[playerid][5], 0.000000, -45.000000, 1.100000, 1.500000);
-	
+
 	CVTIntro_TD[playerid][6] = CreatePlayerTextDraw(playerid, 40.000000, 205.166702, "box");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][6], 0.000000, 22.312500);
 	PlayerTextDrawTextSize(playerid, CVTIntro_TD[playerid][6], 296.250000, 0.000000);
@@ -1263,7 +1259,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][6], 1);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][6], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][6], 0);
-	
+
 	CVTIntro_TD[playerid][7] = CreatePlayerTextDraw(playerid, 99.375000, 112.999992, "'Where_the_battle_begins'");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][7], 0.499374, 1.279167);
 	PlayerTextDrawAlignment(playerid, CVTIntro_TD[playerid][7], 1);
@@ -1274,7 +1270,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][7], 0);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][7], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][7], 0);
-	
+
 	CVTIntro_TD[playerid][8] = CreatePlayerTextDraw(playerid, 92.500000, 205.166717, "Cops vs Terrorist (also known as CvT) is a server based ~n~ over war. ~n~This server is based on the wars and battles between~n~to factions; \
 	Cops and Terrorist. Your duty is to serve ~n~your team the best and prevent~n~it to be exploited by your rivals. You \
 	must prove your~n~ abilities before you are handed over~n~the rank of Supreme. You may also find roleplay...");
@@ -1287,7 +1283,7 @@ CreateUsefulTextdraws(playerid)
 	PlayerTextDrawFont(playerid, CVTIntro_TD[playerid][8], 1);
 	PlayerTextDrawSetProportional(playerid, CVTIntro_TD[playerid][8], 1);
 	PlayerTextDrawSetShadow(playerid, CVTIntro_TD[playerid][8], 0);
-	
+
 	CVTIntro_TD[playerid][9] = CreatePlayerTextDraw(playerid, 92.500000, 368.499969, "________________________or_even_RP_events_going_on_here_'n~n~there._So_what_are_you_waiting_for?_Get_your_gear_up_and_~n~get_ready_for_the_ultimate_war!");
 	PlayerTextDrawLetterSize(playerid, CVTIntro_TD[playerid][9], 0.214999, 1.296666);
 	PlayerTextDrawAlignment(playerid, CVTIntro_TD[playerid][9], 1);
@@ -1392,5 +1388,5 @@ stock AdminRank(playerid)
 		case 7: format(admin,sizeof(admin),"Executive Director");
 	}
 	return admin;
-	
+
 }
