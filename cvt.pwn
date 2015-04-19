@@ -10,7 +10,7 @@ SCRIPTING NOTES:
  - Do not add air-killing vehicles such as Hunter or Sparrows. They provide extra power over killing.
  - Anticheat Settings:
         ALWAYS use SetPlayerHealthEx / SetPlayerArmourEx to set the players health/armour, or else the script will detect the player as hacking!*/
- #include	<a_samp>
+#include	<a_samp>
 #include	<a_mysql>
 #include	<ZCMD>
 #include	<colors>
